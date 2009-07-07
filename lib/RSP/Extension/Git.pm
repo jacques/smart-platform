@@ -90,7 +90,7 @@ sub provide {
         };
         if ($@) {
           $tx->log( $@ );
-	  RSP::Error->throw($@);
+          RSP::Error->throw($@);
         }
         
         return 1;
@@ -110,7 +110,7 @@ sub provide {
         };
         if ($@) {
           $tx->log("could not update: " . $@);
-	  RSP::Error->throw( "could not update:" . $@ );
+          RSP::Error->throw( "could not update:" . $@ );
         }
         return 1;
       },
@@ -133,7 +133,7 @@ sub provide {
         foreach my $file (@files) {
           unlink( $file );
         }
-        
+
         my @dirs = reverse sort { 
           length($a) <=> length($b)
         } File::Find::Rule->directory()
@@ -148,8 +148,8 @@ sub provide {
         return 1;
       }
     }
-  
-  
+
+
   );
 }
 

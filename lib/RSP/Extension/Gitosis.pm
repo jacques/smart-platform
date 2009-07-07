@@ -16,22 +16,22 @@ sub provides {
   my $class = shift;
   my $tx   = shift;
   return {
-	  gitosis => {
-		      repo => {
-			       clone => $class->can('clone')->( $class, $tx )
-			      },
-		      key => {
-			      'write' => sub {
-				my ($user, $key) = @_;
-				$class->new( $tx )->write_key( $user, $key )
-			      },
-			      'exists' => sub {
-				my $user = shift;
-				if (!$user) { RSP::Error->throw('no user specified') }
-				return $class->new( $tx )->check_key( $user );
-			      }
-			     },
-		     }
+    gitosis => {
+          repo => {
+             clone => $class->can('clone')->( $class, $tx )
+            },
+          key => {
+            'write' => sub {
+              my ($user, $key) = @_;
+              $class->new( $tx )->write_key( $user, $key )
+            },
+            'exists' => sub {
+              my $user = shift;
+              if (!$user) { RSP::Error->throw('no user specified') }
+              return $class->new( $tx )->check_key( $user );
+            }
+           },
+         }
   };
 }
 
@@ -52,9 +52,9 @@ sub write_key {
   my $user = shift;
   my $key  = shift;
   my $file = File::Spec->catfile(
-				 RSP->config->{keymanager}->{keydir},
-				 sprintf("%s.pub", $user)
-				);
+         RSP->config->{keymanager}->{keydir},
+         sprintf("%s.pub", $user)
+        );
   my $fh = IO::File->new( $file, ">" );
   if (!$fh) {
     RSP::Error->throw("could not open keyfile for writing");
@@ -68,10 +68,10 @@ sub check_key {
   my $user = shift;
 
   my $keyfile = File::Spec->catfile(
-				    RSP->config->{gitosis}->{admin},
-				    'keydir',
-				    sprintf('%s.pub', $user)
-				   );
+            RSP->config->{gitosis}->{admin},
+            'keydir',
+            sprintf('%s.pub', $user)
+           );
   -e $keyfile
 }
 
@@ -82,13 +82,13 @@ sub clone {
     my $from = shift;
     my $to   = shift;
     my $mesg = {
-		from_project => $from,
-		to_project   => $to
-	       };
+      from_project => $from,
+      to_project   => $to
+         };
     RSP::Stomp->send(
-		     RSP->config->{amqp}->{repository_management_exchange},
-		     encode_json( $mesg )
-		    );
+         RSP->config->{amqp}->{repository_management_exchange},
+         encode_json( $mesg )
+        );
     return 1;
   }
 }
