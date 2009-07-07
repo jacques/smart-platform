@@ -46,8 +46,8 @@ sub getmogile_adm {
   my $self = shift;
   my $tx   = shift;
   $tx->{mogile_adm} ||= MogileFS::Admin->new(
-					 hosts => [ split(',', RSP->config->{mogilefs}->{trackers}) ]
-					);
+           hosts => [ split(',', RSP->config->{mogilefs}->{trackers}) ]
+          );
 }
 
 ##
@@ -61,9 +61,9 @@ sub write {
       my $domain = $self->domain_from_tx_and_type( $tx, $type );
       my $adm = $self->getmogile_adm( $tx );
       if (!$adm->create_domain( $domain )) {
-	die "could not register unregistered domain: " . $adm->errstr;
+        die "could not register unregistered domain: " . $adm->errstr;
       } else {
-	$self->_write( $tx, $type, $name, $data );
+        $self->_write( $tx, $type, $name, $data );
       }
     } else {
       die $@;
@@ -90,13 +90,13 @@ sub _write {
     ## if we have a file object instead of just some data...
     if ( blessed( $data ) ) {
       if ( !$mog->store_file($name, undef, $data->fullpath) ) {
-	$tx->log("an error occurred when attempting to write " . $data->filename . " " . $mog->errcode);
-	die "an error occurred when attempting to write " . $data->filename . " " . $mog->errcode;
+        $tx->log("an error occurred when attempting to write " . $data->filename . " " . $mog->errcode);
+        die "an error occurred when attempting to write " . $data->filename . " " . $mog->errcode;
       }
     } else {
       if (!$mog->store_content($name, undef, $data)) {
-	$tx->log("an error occurred when attempting to write $name (" . $mog->errcode . ")");
-	die "an error occurred when attempting to write $name (" . $mog->errcode . ")";
+        $tx->log("an error occurred when attempting to write $name (" . $mog->errcode . ")");
+        die "an error occurred when attempting to write $name (" . $mog->errcode . ")";
       }
     }
   };
