@@ -33,11 +33,11 @@ sub perform_connection {
   my $class = shift;
   my $host = RSP->config->{mysql}->{host};
   DBI->connect_cached(
-		      "dbi:mysql:host=$host",
-		      RSP->config->{mysql}->{username},
-		      RSP->config->{mysql}->{password},
-		      { mysql_enable_utf8 => 1 }
-		     )
+          "dbi:mysql:host=$host",
+          RSP->config->{mysql}->{username},
+          RSP->config->{mysql}->{password},
+          { mysql_enable_utf8 => 1 }
+         )
 }
 
 sub connect {
@@ -53,7 +53,7 @@ sub connect {
   ## NOTE: This commented assertion may not be true any more!
   eval {
       if (!$self->conn->do(sprintf("use %s", $self->namespace))) {
-	  die "unknown db";
+        die "unknown db";
       }
   };
   if ($@) {

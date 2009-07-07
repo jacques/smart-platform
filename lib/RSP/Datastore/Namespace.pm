@@ -114,7 +114,7 @@ sub read {
   if ( $cache ) {
     my $cached = eval { JSON::XS::decode_json( $cache ); };
     if ( keys %$cached ) {
-	return $cached;
+      return $cached;
     }
   }
 
@@ -280,12 +280,12 @@ sub query {
     if (keys %$query == 0) {
       my $set = $self->all_ids_for( $type );
       foreach my $id (@$set) {
-	push @objects, $self->read($type, $id);
+        push @objects, $self->read($type, $id);
       }
     } else {
       my $set = $self->query_set_and( $type, $query );
       foreach my $id (@$set) {
-	push @objects, $self->read( $type, $id );
+        push @objects, $self->read( $type, $id );
       }
     }
   } elsif (ref($query) eq 'ARRAY') {
@@ -298,15 +298,15 @@ sub query {
   if ( $opts->{sort} ) {
     ## okay, time to get sorting...
     @objects = sort { 
-	my $ra = $a->{$opts->{sort}};
-	my $rb = $b->{$opts->{sort}};
-	my $result;
-	if (isnum( $ra )) {
-	  $result = $ra <=> $rb;
-	} else {
-	  $result = $ra cmp $rb;
-	}
-	return $result;
+      my $ra = $a->{$opts->{sort}};
+      my $rb = $b->{$opts->{sort}};
+      my $result;
+      if (isnum( $ra )) {
+        $result = $ra <=> $rb;
+      } else {
+        $result = $ra cmp $rb;
+      }
+      return $result;
     } @objects;
   }
 
@@ -400,10 +400,10 @@ sub table_for {
   }
   my $dt = $self->valtype( $args->{value} );
   my $lookup = {
-		'int' => 'i',
-		'float' => 'f',
-		'ref' => 'o',
-		'string' => 's'
+    'int' => 'i',
+    'float' => 'f',
+    'ref' => 'o',
+    'string' => 's'
   };
   return "${type}_prop_$lookup->{$dt}";
 }
@@ -445,7 +445,7 @@ sub query_one_set {
       ## at this point it's easier to duck and recursively query...
       my @csets = ();
       foreach my $elem (@$val) {
-	push @csets, $self->query_set_and( $type, { $key => $elem } );
+        push @csets, $self->query_set_and( $type, { $key => $elem } );
       }
       return @csets;
     }
