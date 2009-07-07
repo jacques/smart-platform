@@ -8,9 +8,9 @@ use RSP::Stomp;
 my $stomp = RSP::Stomp->connection;
 my $dest  = RSP->config->{amqp}->{repository_management_exchange};
 $stomp->subscribe({
-		   'destination' => $dest,
-		   'ack'         => 'client'
-		  });
+       'destination' => $dest,
+       'ack'         => 'client'
+      });
 
 while (1) {
     my $frame = $stomp->receive_frame;

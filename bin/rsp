@@ -31,9 +31,9 @@ if ( RSP->config->{mojo}->{port} ) {
     foreach my $port ( @range ) {
       $SIG{CHLD} = $SIG{HUP} = "IGNORE";
       if (!fork()) {
-	$server->port( $port );
-	$server->run;
-	exit;
+        $server->port( $port );
+        $server->run;
+        exit;
       }
     }
   } else {
@@ -49,5 +49,3 @@ package Mojo::Server::Daemon::Prefork;
 use POSIX qw( setsid );
 
 1;
-
-

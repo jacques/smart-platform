@@ -56,16 +56,16 @@ while( 1 ) {
       my $needsadd = !-e $dest;
       ## first copy the key
       if ( File::Copy::copy( $origin, $dest . ".tmp") ) {
-	## if we can copy it into the keydir, then we move it to the correct
-	## name, this makes the filesystem operation atomic, with the assumption
-	## that this final move is within the filesystem.
-	File::Copy::move( $dest.".tmp", $dest );
-	## then we unlink it.
-	unlink( $origin );
+        ## if we can copy it into the keydir, then we move it to the correct
+        ## name, this makes the filesystem operation atomic, with the assumption
+        ## that this final move is within the filesystem.
+        File::Copy::move( $dest.".tmp", $dest );
+        ## then we unlink it.
+        unlink( $origin );
       }
       ## add the file to the git staging area, if this is an update
       if ( $needsadd ) {
-	$gw->add('keydir/'.$file);
+        $gw->add('keydir/'.$file);
       }
     }
     ## commit the changes, and push.
