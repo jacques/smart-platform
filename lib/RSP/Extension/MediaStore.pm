@@ -19,12 +19,12 @@ sub provides {
   $class->bind_class->bind( $tx );
 
   return {
-	  mediastore => {
-			 write  => sub { $class->write( $tx, @_ ) },
-			 remove => sub { $class->remove( $tx, @_ ) },
-			 get    => sub { $class->get( $tx, @_ ) },
-			}
-	 };
+    mediastore => {
+      write  => sub { $class->write( $tx, @_ ) },
+      remove => sub { $class->remove( $tx, @_ ) },
+      get    => sub { $class->get( $tx, @_ ) },
+    }
+  };
 }
 
 1;

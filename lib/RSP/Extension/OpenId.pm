@@ -78,8 +78,8 @@ sub provides {
       returned => sub {
         my $sec = shift;
         if (!$sec) { 
-	  RSP::Error->throw("no secret");
-	}
+          RSP::Error->throw("no secret");
+        }
         my ($host, $port) = split(/:/, $tx->request->headers->host);
         my $trust_root = $tx->request->url->clone;
         $trust_root->scheme('http');

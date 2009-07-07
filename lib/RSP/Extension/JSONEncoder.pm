@@ -24,21 +24,21 @@ sub provides {
       'encode' => sub {
         my $ds  = shift;
         my $enc = shift;
-	my $ret = eval { $encoders->[$enc]->encode( $ds ) };
-	if ($@) {
-	  $tx->log("error: $@");
-	  RSP::Error->throw( $@ );
-	}
-	return $ret;
+        my $ret = eval { $encoders->[$enc]->encode( $ds ) };
+        if ($@) {
+          $tx->log("error: $@");
+          RSP::Error->throw( $@ );
+        }
+        return $ret;
       },
       'decode' => sub {
         my $json = shift;
         my $ret  = $encoders->[0]->decode( $json );
-	if ($@) {
-	  $tx->log("error: $@");
-	  RSP::Error->throw( $@ );
-	}
-	return $ret;
+        if ($@) {
+          $tx->log("error: $@");
+          RSP::Error->throw( $@ );
+        }
+        return $ret;
       }
     }
   }

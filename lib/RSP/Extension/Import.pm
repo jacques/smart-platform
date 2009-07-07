@@ -22,12 +22,12 @@ sub provides {
        $lib .= ".js";
        my $path = $class->path_to_lib( $tx, $lib );
        if (!$path) {
-	 RSP::Error->throw("library $orig does not exist");
+        RSP::Error->throw("library $orig does not exist");
        }
        $tx->context->eval_file( $path );
        if ($@) {
-	 $tx->log($@);
-	 RSP::Error->throw($@);
+        $tx->log($@);
+        RSP::Error->throw($@);
        }
     }
   }

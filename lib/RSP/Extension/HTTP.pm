@@ -29,14 +29,14 @@ sub provides {
     'http' => {
       'request' => sub {
         my $response = eval {
-	  my @args;
-	  foreach my $part (@_) {
-	    if (!ref($part)) {
-	      push( @args, Encode::encode("utf8", $part ) );
-	    } else {
-	      push( @args, $part );
-	    }
-	  }
+          my @args;
+          foreach my $part (@_) {
+            if (!ref($part)) {
+              push( @args, Encode::encode("utf8", $part ) );
+            } else {
+              push( @args, $part );
+            }
+          }
           my $req = shift @args;
           my $r;
           if ( ref( $req ) ) {
@@ -50,7 +50,7 @@ sub provides {
           RSP::Error->throw("error: $@");
         }
         my $ro = $class->response_to_object( $response );
-	return $ro;
+        return $ro;
       }
     }
   };
@@ -61,10 +61,10 @@ sub response_to_object {
   my $response = shift;
   my %headers = %{ $response->{_headers} };
   my $ro = {
-	    'headers' => \%headers,
-	    'content' => $response->decoded_content,
-	    'code'    => $response->code,
-	   };
+      'headers' => \%headers,
+      'content' => $response->decoded_content,
+      'code'    => $response->code,
+     };
   return $ro;
 }
 
