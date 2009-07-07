@@ -78,37 +78,37 @@ sub filename {
 sub mimetype {
   my $self = shift;
   $self->cached_getandset(
-			  'mimetype', sub {
-			    my $mm   = File::MMagic->new;
-			    return $mm->checktype_contents( $self->contents );
-			  }
-			 );
+        'mimetype', sub {
+          my $mm   = File::MMagic->new;
+          return $mm->checktype_contents( $self->contents );
+        }
+       );
 }
 
 sub size {
   my $self = shift;
   $self->cached_getandset(
-			  'size',
-			  sub {
-			    return bytes::length( $self->contents );
-			  }
-			 );
+        'size',
+        sub {
+          return bytes::length( $self->contents );
+        }
+       );
 }
 
 sub contents {
   my $self = shift;
   $self->cached_getandset(
-			  'content',
-			  sub {
-			    my $ua = LWP::UserAgent->new;
-			    foreach my $path (@{ $self->{paths} }) {
-			      my $response = $ua->get($path);
-			      if ( $response->is_success ) {
-				return $response->content;
-			      }
-			    }
-			  }
-			 );
+        'content',
+        sub {
+          my $ua = LWP::UserAgent->new;
+          foreach my $path (@{ $self->{paths} }) {
+            my $response = $ua->get($path);
+            if ( $response->is_success ) {
+              return $response->content;
+            }
+          }
+        }
+       );
 }
 
 sub as_string {

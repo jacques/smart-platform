@@ -37,66 +37,66 @@ sub new {
 
 sub properties {
   return {
-	  'width' => {
-		      'getter' => sub {
-			my $self = shift;
-			return $self->imager->getwidth;
-		      }
-		     },
-	  'height' => {
-		       'getter' => sub {
-			 my $self = shift;
-			 return $self->imager->getheight;
-		       }
-		      }
-	 }
+    'width' => {
+      'getter' => sub {
+        my $self = shift;
+        return $self->imager->getwidth;
+      }
+    },
+    'height' => {
+      'getter' => sub {
+        my $self = shift;
+        return $self->imager->getheight;
+      }
+    }
+  }
 }
 
 sub methods {
   return {
-	  'flip_horizontal' => sub {
-	    my $self = shift;
-	    $self->imager( $self->imager->flip( dir => 'h' ) );
-	  },
-	  'flip_vertical'   => sub {
-	    my $self = shift;
-	    $self->imager( $self->imager->flip( dir => 'v' ) );
-	  },
-	  'rotate' => sub {
-	    my $self    = shift;
-	    my $degrees = shift;
-	    if (!defined $degrees) { die "no amount of degrees to rotate" }
-	    $self->imager( $self->imager->rotate( degrees => $degrees ) );
-	  },
-	  'scale'  => sub {
-	    my $self = shift;
-	    my $opts = shift;
-	    my $x    = $opts->{xpixels} // 0; ## 5.10 feature, defined xpixels or 0.
-	    my $y    = $opts->{ypixels} // 0; ## 5.10 feature, defined xpixels or 0.
-	    $self->imager( $self->imager->scale( constrain => Image::Math::Constrain->new( $x, $y ) ) );
-	  },
-	  'crop'  => sub {
-	    my $self = shift;
-	    my $opts = shift;
-	    $self->imager( $self->imager->crop( %$opts ) || die $self->imager->errstr );
-	  },
-	  'save'  => sub {
-	    my $self = shift;
-	    my $new  = shift;
-	    if ( $new ) {
-	      my $temp = $self->{temp} = File::Temp->new();
-	      if (!$self->imager->write( file => $temp->filename, type => $self->mimetype->subType )) {
-		  die { message => $self->imager->errstr };
-	      }
-	      $temp->close;
-	      $self->file( RSP::JSObject::File->new( $temp->filename, "tmpimage" ) );
-	    } else {
-	      $self->imager->write( file => $self->file->fullpath, type => $self->mimetype->subType )
-		or die { message => $self->imager->errstr };
-	    }
-	    return $self->file;
-	  }
-	 }
+    'flip_horizontal' => sub {
+      my $self = shift;
+      $self->imager( $self->imager->flip( dir => 'h' ) );
+    },
+    'flip_vertical'   => sub {
+      my $self = shift;
+      $self->imager( $self->imager->flip( dir => 'v' ) );
+    },
+    'rotate' => sub {
+      my $self    = shift;
+      my $degrees = shift;
+      if (!defined $degrees) { die "no amount of degrees to rotate" }
+      $self->imager( $self->imager->rotate( degrees => $degrees ) );
+    },
+    'scale'  => sub {
+      my $self = shift;
+      my $opts = shift;
+      my $x    = $opts->{xpixels} // 0; ## 5.10 feature, defined xpixels or 0.
+      my $y    = $opts->{ypixels} // 0; ## 5.10 feature, defined xpixels or 0.
+      $self->imager( $self->imager->scale( constrain => Image::Math::Constrain->new( $x, $y ) ) );
+    },
+    'crop'  => sub {
+      my $self = shift;
+      my $opts = shift;
+      $self->imager( $self->imager->crop( %$opts ) || die $self->imager->errstr );
+    },
+    'save'  => sub {
+      my $self = shift;
+      my $new  = shift;
+      if ( $new ) {
+        my $temp = $self->{temp} = File::Temp->new();
+        if (!$self->imager->write( file => $temp->filename, type => $self->mimetype->subType )) {
+          die { message => $self->imager->errstr };
+        }
+        $temp->close;
+        $self->file( RSP::JSObject::File->new( $temp->filename, "tmpimage" ) );
+      } else {
+        $self->imager->write( file => $self->file->fullpath, type => $self->mimetype->subType )
+        or die { message => $self->imager->errstr };
+      }
+      return $self->file;
+    }
+   }
 }
 
 sub as_string {
