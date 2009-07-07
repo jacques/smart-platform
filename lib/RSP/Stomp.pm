@@ -20,10 +20,10 @@ sub send {
   my $mesg  = shift;
   my $conn  = $class->connection;
   $conn->send({
-	       destination   => $dest,
-	       bytes_message => 1,
-	       body          => $mesg
-	      });
+         destination   => $dest,
+         bytes_message => 1,
+         body          => $mesg
+        });
 }
 
 sub connection {

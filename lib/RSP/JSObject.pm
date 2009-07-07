@@ -12,11 +12,11 @@ sub bind {
   my $tx    = shift;
   my $cx    = $tx->context;
   my $opts  = {
-	       name       => $class->jsclass,
-	       package    => $class,
-	       properties => $class->properties,
-	       methods    => $class->methods,
-	      };
+        name       => $class->jsclass,
+        package    => $class,
+        properties => $class->properties,
+        methods    => $class->methods,
+      };
   if ( $class->can('constructor') ) {
     $opts->{constructor} = $class->can('constructor')->();
   }

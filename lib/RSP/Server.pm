@@ -132,7 +132,7 @@ sub run {
       my ($name,$passwd,$uid,$gid, $quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam( $CONFIG->{server}->{User} );
       if ($uid) {
         POSIX::setuid( $uid );
-	if ($!) { warn "setuid: $!" }
+        if ($!) { warn "setuid: $!" }
       } else {
         die "unknown user $CONFIG->{server}->{User}";
       }

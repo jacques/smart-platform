@@ -141,15 +141,15 @@ sub initialize_js_environment {
 
   ## there is a faster way of doing this...
   $self->runtime->set_interrupt_handler(
-					sub {
-					  $self->{ops}++;
-					  if ( $self->ops > $self->host->op_threshold ) {
-					    $self->log("op threshold exceeded");
-					    RSP::Error->throw("op threshold exceeded");
-					  }
-					  return 1;
-					}
-				       );
+          sub {
+            $self->{ops}++;
+            if ( $self->ops > $self->host->op_threshold ) {
+              $self->log("op threshold exceeded");
+              RSP::Error->throw("op threshold exceeded");
+            }
+            return 1;
+          }
+               );
 
   $self->context( $self->runtime->create_context );
   $self->context->set_version( "1.8" );
@@ -226,9 +226,9 @@ sub run {
   my $self = shift;
   my $response = eval {
     $self->context->call(
-			 $self->host->entrypoint,
-			 $self->build_entrypoint_arguments
-			);
+       $self->host->entrypoint,
+       $self->build_entrypoint_arguments
+      );
   };
   if ($@) {
     $self->log($@);
@@ -335,7 +335,7 @@ sub import_extensions {
       if ( $ext_class->should_provide( $self ) ) {
         my $provided = $ext_class->provides( $self );
         if ( !$provided ) {
-	  ## perhaps we should do something?
+    ## perhaps we should do something?
         } elsif (!ref($provided) || ref($provided) ne 'HASH') {
           #warn "invalid extension provided by $ext";
         } else {

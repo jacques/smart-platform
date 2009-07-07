@@ -13,22 +13,22 @@ sub jsclass {
 
 sub properties {
   return {
-	  'message' => {
-			'getter' => sub { return $_[0]->{message} }
-		       },
-	  'fileName' => {
-			 'getter' => sub { return $_[0]->{fileName} }
-			},
-	  'lineNumber' => {
-			   'getter' => sub { return $_[0]->{lineNumber} }
-			  }
-	 };
+    'message' => {
+      'getter' => sub { return $_[0]->{message} }
+    },
+    'fileName' => {
+      'getter' => sub { return $_[0]->{fileName} }
+    },
+    'lineNumber' => {
+      'getter' => sub { return $_[0]->{lineNumber} }
+    }
+  };
 }
 
 sub methods {
   return {
-	  'toString' => sub { my $self = shift; return $self->as_string; }
-	 };
+    'toString' => sub { my $self = shift; return $self->as_string; }
+   };
 }
 
 sub new {
