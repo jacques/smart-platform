@@ -16,7 +16,7 @@ sub handler {
 
   my $rsptx = RSP::Transaction::Mojo->new
                                     ->request( $tx->req )
-				    ->response( $tx->res );
+                                    ->response( $tx->res );
 
   eval {
     $rsptx->process_transaction;
