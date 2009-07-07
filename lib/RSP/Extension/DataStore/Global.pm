@@ -26,39 +26,39 @@ sub provides {
   return {
     'globalstore' => {
       'types'  => sub {
-	my $ns = shift;
-	my @types = eval {
-	  my $ds = RSP::Datastore->get_namespace( $class->providing_class_shortname, $ns );
-	  $ds->types();
-	};
-	if ($@) {
-	  print "got an error: $@\n";
-	}
-	return \@types;
+        my $ns = shift;
+        my @types = eval {
+          my $ds = RSP::Datastore->get_namespace( $class->providing_class_shortname, $ns );
+          $ds->types();
+        };
+        if ($@) {
+          print "got an error: $@\n";
+        }
+        return \@types;
       },
       'write'  => sub { 
-	my $ns   = shift;
-	my $type = lc( shift );
-	my $ds   = RSP::Datastore->get_namespace( $ns );
-	return $ds->write( $type, @_ );
-       },
+        my $ns   = shift;
+        my $type = lc( shift );
+        my $ds   = RSP::Datastore->get_namespace( $ns );
+        return $ds->write( $type, @_ );
+      },
       'remove' => sub {
-	my $ns   = shift;
-	my $type = lc( shift );
-	my $ds   = RSP::Datastore->get_namespace( $ns );
-	return $ds->remove( $type, @_ );
+        my $ns   = shift;
+        my $type = lc( shift );
+        my $ds   = RSP::Datastore->get_namespace( $ns );
+        return $ds->remove( $type, @_ );
        },
       'search' => sub {
-	my $ns   = shift;
-	my $type = lc( shift );
-	my $ds   = RSP::Datastore->get_namespace( $ns );
-	return $ds->query( $type, @_ );
+        my $ns   = shift;
+        my $type = lc( shift );
+        my $ds   = RSP::Datastore->get_namespace( $ns );
+        return $ds->query( $type, @_ );
        },
       'get'    => sub {
-	my $ns   = shift;
-	my $type = lc( shift );
-	my $ds   = RSP::Datastore->get_namespace( $ns );
-	return $ds->read( $type, @_ );
+        my $ns   = shift;
+        my $type = lc( shift );
+        my $ds   = RSP::Datastore->get_namespace( $ns );
+        return $ds->read( $type, @_ );
        }
     }
   };
