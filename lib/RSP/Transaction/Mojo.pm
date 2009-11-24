@@ -7,6 +7,7 @@ use Encode;
 use base 'RSP::Transaction';
 use File::Basename;
 use RSP::Transaction::Mojo::HostMap;
+use Mojo::Asset::File;
 
 sub hostname {
   my $self = shift;
